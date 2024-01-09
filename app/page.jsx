@@ -27,7 +27,7 @@ export default function Home() {
 
   const fetchGif = async () => {
     
-    console.log('serching here outside')
+    // console.log('serching here outside')
 
     let response
     if(searchTerm.trim().length === 0){
@@ -39,7 +39,7 @@ export default function Home() {
     if (searchTerm) { 
       try {
         await fetch(`/api/searchTerm/${searchTerm}/${currentPage}`)
-        console.log('after');
+        // console.log('after');
       } catch (error) {
         console.log(error);
       }
@@ -47,7 +47,7 @@ export default function Home() {
     }
     if (response.ok) {
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
       setGifData(data);
     } else {
       throw new Error("Failed to fetch data");
