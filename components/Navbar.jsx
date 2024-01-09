@@ -15,6 +15,8 @@ const Navbar = ({setSearchTerm}) => {
     const logOut =async () =>{    
         await signOut(auth)
         Cookies.remove('isAuth')
+        Cookies.remove('likedGifs')
+        Cookies.remove('userId')
         router.replace('/auth/login')        
     }
     
