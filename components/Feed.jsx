@@ -6,8 +6,8 @@ const Feed = ({ gifData }) => {
   return (
     <>
       <div className="flex  min-h-screen flex-wrap justify-center gap-8 py-4 rounded">
-        {gifData?.data.map((gif) => (
-          <div key={gif.id}>
+        {gifData?.data.map((gif,i) => (
+          <div key={gif.id + i}>
           <GifCard gif={gif} likedGifs={likedGifs} />
           </div>
         ))}

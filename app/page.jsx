@@ -47,6 +47,7 @@ export default function Home() {
     }
     if (response.ok) {
       const data = await response.json();
+      console.log(data);
       setGifData(data);
     } else {
       throw new Error("Failed to fetch data");
