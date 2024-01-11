@@ -83,7 +83,8 @@ const Register = () => {
 
         <button
           type="submit"
-          className="w-full p-2 bg-black text-white rounded hover:bg-blue-700"
+          className="w-full p-2 bg-black text-white rounded hover:bg-gray-800 disabled:bg-gray-500"
+          disabled={loading}
         >
           {loading ? 'Register..' : 'Register'}
         </button>
