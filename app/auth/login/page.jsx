@@ -14,15 +14,18 @@ const initialState = {
 const Login = () => {
   const router = useRouter();
   const [formData, setFormData] = useState(initialState);
+  const [loading, setLoading] = useState(false)
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true)
     try {
       const data = await fetch("/api/auth/login", {
         method: "POST",
         body: JSON.stringify(formData),
       });
       if (data.status === 200) {
+        setLoading(false)
         Cookies.set("isAuth", true);
         setFormData(initialState);
         router.push("/");
@@ -38,7 +41,7 @@ const Login = () => {
 
   return (
     <div className=" flex justify-center items-center w-full h-screen flex-col">
-      <span className="text-xl font-bold">Login Form</span>
+      <span className="text-xl font-bold mb-3">Login Form</span>
 
       <form
         onSubmit={handleLogin}
@@ -68,9 +71,10 @@ const Login = () => {
 
         <button
           type="submit"
-          className="w-full p-2 bg-blue-500 text-white rounded hover:bg-blue-700"
+          className="w-full p-2 bg-black text-white rounded hover:bg-blue-700"
+          disabled = {loading}
         >
-          login
+          {loading ? 'login...':'login'}
         </button>
       </form>
 

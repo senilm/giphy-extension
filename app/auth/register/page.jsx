@@ -16,9 +16,11 @@ const initialState = {
 const Register = () => {
   const router = useRouter();
   const [formData, setFormData] = useState(initialState);
+  const [loading, isLoading] = useState(false)
 
   const handleRegister = async (e) => {
     e.preventDefault();
+    isLoading(true)
     try {
       const data = await fetch("/api/auth/register", {
         method: "POST",
@@ -26,6 +28,7 @@ const Register = () => {
       });
       if (data.status===200) {
         const res = await data.json()
+        isLoading(false)
         Cookies.set('userId',res.id)
         setFormData(initialState)
         router.push("/auth/login");
@@ -39,7 +42,7 @@ const Register = () => {
 
   return (
     <div className=" flex justify-center items-center w-full h-screen flex-col">
-      <span className="font-bold text-xl">Registration form</span>
+      <span className="font-bold text-xl mb-2">Registration form</span>
 
       <form
         onSubmit={handleRegister}
@@ -80,9 +83,9 @@ const Register = () => {
 
         <button
           type="submit"
-          className="w-full p-2 bg-blue-500 text-white rounded hover:bg-blue-700"
+          className="w-full p-2 bg-black text-white rounded hover:bg-blue-700"
         >
-          Register
+          {loading ? 'Register..' : 'Register'}
         </button>
       </form>
 
