@@ -141,7 +141,7 @@ const Login = () => {
               </div>
             </div>
             <div className="text-sm mt-3 text-center">
-                Don't have an account? <Link href={"/auth/register"} className=" text-blue-400">Create new account</Link>
+            Don&apos;t have an account? <Link href={"/auth/register"} className=" text-blue-400">Create new account</Link>
               </div>
           </div>
         </div>
