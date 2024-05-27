@@ -26,9 +26,6 @@ export default function Home() {
   let debounceTimeout;
 
   const fetchGif = async () => {
-    
-    // console.log('serching here outside')
-
     let response
     if(searchTerm.trim().length === 0){
       response = await fetch(trendUrl)
@@ -39,7 +36,6 @@ export default function Home() {
     if (searchTerm) { 
       try {
         await fetch(`/api/searchTerm/${searchTerm}/${currentPage}`)
-        // console.log('after');
       } catch (error) {
         console.log(error);
       }
@@ -54,20 +50,18 @@ export default function Home() {
     }
   };
 
-useEffect(()=>{
-  setCurrentPage(1)
-},[searchTerm])
+  useEffect(()=>{
+    setCurrentPage(1)
+  },[searchTerm])
+
   useEffect(() => {
-    // Clear previous debounce timeout
     if (debounceTimeout) {
       clearTimeout(debounceTimeout);
     }
-    // Set a new debounce timeout
     debounceTimeout = setTimeout(() => {
       fetchGif();
     }, 500);
 
-    // Clean up the timeout when the component unmounts
     return () => {
       if (debounceTimeout) {
         clearTimeout(debounceTimeout);
