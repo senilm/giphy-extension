@@ -104,7 +104,7 @@ export default function Home() {
                   Personalized Recommendations
                 </h3>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
-                  Our app learns your preferences and suggests GIFs you're sure
+                  Our app learns your preferences and suggests GIFs you are sure
                   to love.
                 </p>
               </div>
@@ -131,7 +131,7 @@ export default function Home() {
                       😂
                     </div>
                     <div className="text-sm font-medium">
-                      "This app is a game-changer for GIF lovers!"
+                    &quot;This app is a game-changer for GIF lovers!&quot;
                     </div>
                     <div className="text-xs text-gray-500 dark:text-gray-400">
                       - Jane Doe, Acme Inc.
@@ -144,7 +144,7 @@ export default function Home() {
                       🤩
                     </div>
                     <div className="text-sm font-medium">
-                      "I can't imagine life without this app!"
+                    &quot;I can&apos;t imagine life without this app!&quot;
                     </div>
                     <div className="text-xs text-gray-500 dark:text-gray-400">
                       - John Smith, Acme Corp.
@@ -157,7 +157,7 @@ export default function Home() {
                       🥳
                     </div>
                     <div className="text-sm font-medium">
-                      "This app makes sharing GIFs a breeze!"
+                    &quot;This app makes sharing GIFs a breeze!&quot;
                     </div>
                     <div className="text-xs text-gray-500 dark:text-gray-400">
                       - Sarah Lee, Acme LLC
