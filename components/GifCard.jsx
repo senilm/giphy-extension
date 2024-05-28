@@ -32,7 +32,7 @@ const GifCard = ({ gif,likedGifs=null,fetchData=null}) => {
 
   };
   return (
-    <div>
+    <div className=" border-4">
       <div className=" flex flex-col">
         <iframe
           src={gif.embed_url || gif.url}

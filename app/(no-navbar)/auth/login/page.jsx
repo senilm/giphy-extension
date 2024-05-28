@@ -41,7 +41,7 @@ const Login = () => {
   
       Cookies.set('isAuth', true);
       setFormData(initialState);
-      router.push('/');
+      router.push('/home');
     } catch (error) {
       console.error('Login error:', error);
       setErrMsg('An error occurred during login. Please try again.');

@@ -28,10 +28,9 @@ const Favorite = () => {
 
   return (
     <div className="border rounded-xl bg-white">
-      <Navbar />
       <div className="flex min-h-screen flex-wrap justify-center gap-8 py-4 rounded">
         {favoriteData.length === 0 ? (
-          <p className=" text-lg">No liked gifs...</p>
+          <p className=" text-lg">You do not have liked any GIF</p>
         ) : (
           favoriteData.map((gif) => (
             <GifCard key={gif.id} gif={gif.gif} likedGifs={likedGifs} fetchData={fetchData} />
