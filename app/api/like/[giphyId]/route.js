@@ -2,19 +2,20 @@ import prisma from "@/app/db";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import Cookies from "js-cookie";
+
 export const PATCH = async (req, { params }) => {
   try {
     const { giphyId } = params;
     const data = await req.json();
     const { gifUrl } = data
-    // console.log(gifUrl);
 
 
     const gifData = await prisma.gif.upsert({
       where: { gifyId: giphyId },
       update: {},
-      create: { gifyId: giphyId, url: gifUrl }, // Replace 'your_gif_url' with the actual gif URL
+      create: { gifyId: giphyId, url: gifUrl },
     });
+    
     const userId = cookies().get("userId");
 
     const existingLike = await prisma.gifLike.findUnique({

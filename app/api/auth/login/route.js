@@ -56,7 +56,7 @@ export const POST = async (req, res) => {
 
     return new Response(JSON.stringify(user), { status: 200 });
   } catch (error) {
-    return new Response(JSON.stringify({ message: "Failed to login, Please try again" }), {
+    return new Response(JSON.stringify({ message: error.message }), {
       status: 400,
     });
   }

@@ -8,9 +8,11 @@ import { useRouter } from "next/navigation";
 import { auth } from "@/lib/firebase";
 import { Button } from "./ui/button";
 import { usePathname } from "next/navigation";
+import { navLinks } from "@/lib/consts";
 
 const Navbar = () => {
   const router = useRouter();
+  console.log()
   const pathname = usePathname();
   const logOut = async () => {
     await signOut(auth);
@@ -31,32 +33,13 @@ const Navbar = () => {
           className=""
         />
       </Link>
-
       <div className="gap-5 flex items-center">
-        {/* {pathname !== "/favorites" ? (
-          <Link href={"/favorites"}>
-            <Button type={"button"} label={"Favorites"}></Button>
-          </Link>
-        ) : (
-          <Link href={"/"}>
-            <Button type={"button"} label={"Home"}></Button>
-          </Link>
-        )} */}
-          <Link href={"/favorites"}>
-            Favorites
-          </Link>
-          <Link href={"/home"}>
-            Home
-          </Link>
-          <Link href={"/explore"}>
-            Explore
-          </Link>
-          <Link href={"/profile"}>
-            Profile
-          </Link>
-        {/* <Button type={"button"} label={'Logout'} action={logOut}></Button> */}
-        {/* <LogoutBtn logOut={logOut} /> */}
-        <Button type={"button"} onClick={logOut} variant="outline">Logout</Button>
+        {navLinks.map((link)=>{
+            return <Link href={link.value}>{link.label}</Link>
+        })}
+        <Button type={"button"} onClick={logOut} variant="outline">
+          Logout
+        </Button>
       </div>
     </nav>
   );

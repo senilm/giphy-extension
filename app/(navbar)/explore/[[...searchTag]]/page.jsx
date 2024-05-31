@@ -5,8 +5,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
 
-const Explore = () => {
-    const [searchTerm, setSearchTerm] = useState("");
+const Explore = ({params}) => {
+    const {searchTag} = params; 
+    const [searchTerm, setSearchTerm] = useState(searchTag ? searchTag[0] : "");
     const [gifData, setGifData] = useState(null);
     const [type, setType] = useState("trending");
     const [currentPage, setCurrentPage] = useState(1);
@@ -21,10 +22,6 @@ const Explore = () => {
     const searchUrl = `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=${searchTerm}&limit=${limit}&offset=${calculateOffset(
       currentPage
     )}`;
-
-    const handleChange = (e) =>{
-      setSearchTerm(e.target.value)
-    }
 
     let debounceTimeout;
   
@@ -46,7 +43,6 @@ const Explore = () => {
       }
       if (response.ok) {
         const data = await response.json();
-        // console.log(data);
         setGifData(data);
       } else {
         throw new Error("Failed to fetch data");
@@ -94,6 +90,7 @@ const Explore = () => {
           <div className=" flex gap-5 justify-center">
             <Input
               type="text"
+              defaultValue={searchTerm}
               className=" border pr-8 pl-3 rounded-lg bg-gray-100 w-[40%] py-3 mt-5"
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Search GIF here"
