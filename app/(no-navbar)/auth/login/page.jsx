@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
+import { KeyRoundIcon, Loader2 } from "lucide-react";
 const initialState = {
   email: "",
   password: "",
@@ -45,7 +46,7 @@ const Login = () => {
     } catch (error) {
       console.error('Login error:', error);
       setErrMsg('An error occurred during login. Please try again.');
-    } finally {
+    } finally { 
       setLoading(false);
     }
   };
@@ -111,7 +112,8 @@ const Login = () => {
               </div>
             </div>
             <div>
-              <Button className="w-full" type="submit">
+              <Button className="w-full" type="submit" disabled={loading}>
+                {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : ""}
               {loading ? 'Please wait...':'Login'}
               </Button>
             </div>
