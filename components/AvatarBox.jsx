@@ -1,7 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
 
-const AvatarBox = ({name, username}) => {
+const AvatarBox = ({username, name="User" }) => {
   return (
     <div className="flex gap-4">
     <div>

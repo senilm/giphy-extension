@@ -9,7 +9,8 @@ export const PATCH = async (req, { params }) => {
     const data = await req.json();
     const { gifUrl } = data
 
-
+    console.log(giphyId)
+    console.log(gifUrl)
     const gifData = await prisma.gif.upsert({
       where: { gifyId: giphyId },
       update: {},

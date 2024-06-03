@@ -21,7 +21,7 @@ const Profile = ({params}) => {
         </div>
 
         <div className="text-sm text-gray-500 dark:text-gray-400">
-          Hey there! I'm a GIF enthusiast and love sharing my favorite moments. Check out my collection!
+          Hey there! I am a GIF enthusiast and love sharing my favorite moments. Check out my collection!
         </div>
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400">

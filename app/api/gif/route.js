@@ -1,7 +1,7 @@
 import prisma from "@/app/db"
 
 export const GET = async (req,res)=>{
-    const gifs = await prisma.gifs.findMany({
+    const gifs = await prisma.gif.findMany({
         where:{
             userId:{
                 not: null
@@ -9,12 +9,12 @@ export const GET = async (req,res)=>{
         },
         include:{
             user:true,
-            gifLike:true,
-            comment:true
+            Comment:true,
+            GifLike:true
         }
     })
 
-    return new Response(gifs, { status: 200 });
+    return new Response(JSON.stringify(gifs), { status: 200 });
 }
 
 

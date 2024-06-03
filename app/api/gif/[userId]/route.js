@@ -1,4 +1,5 @@
 import prisma from "@/app/db";
+import { generateUid } from "@/lib/generateUid";
 import { v2 as cloudinary } from "cloudinary";
 
 // Cloudinary config
@@ -78,12 +79,14 @@ export const POST = async (req, { params }) => {
       throw new Error("Failed to upload the file to Cloudinary.");
     }
 
+    const uid = generateUid(res.secure_url);
+
     const GifC = await prisma.gif.create({
       data: {
         userId: userId,
         url: res.secure_url,
         caption,
-        gifyId: "Fake-" + res.secure_url + "-" + Math.random() * 1000,
+        gifyId: uid,
       },
     });
 
