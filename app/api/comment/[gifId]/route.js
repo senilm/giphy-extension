@@ -6,7 +6,6 @@ export const POST = async (req, { params }) => {
     const { gifId } = params;
     const { userId, comment } = reqData;
 
-    console.log(reqData);
     if (!userId || !gifId || !comment) {
       return new Response(
         JSON.stringify({ message: "Please provide required details" }),

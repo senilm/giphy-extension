@@ -2,7 +2,6 @@ import GifCard from "./GifCard";
 import Cookies from "js-cookie";
 
 const Feed = ({ gifData }) => {
-  console.log(gifData)
   const likedGifs = Cookies.get('likedGifs')
   return (
     <>

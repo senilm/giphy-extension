@@ -12,7 +12,7 @@ const GifCardHome = () => {
           alt="GIF"
           className="aspect-square object-cover rounded-t-lg"
           height={300}
-          src="/200w.gif"
+          src="https://res.cloudinary.com/dnfoei2al/image/upload/v1717401481/gywnvalquigj7t9k11ox.gif"
           width={300}
         />
         <div className="absolute rounded-lg inset-0 bg-gray-900/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">

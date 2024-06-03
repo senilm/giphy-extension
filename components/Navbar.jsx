@@ -35,7 +35,7 @@ const Navbar = () => {
       </Link>
       <div className="gap-5 flex items-center">
         {navLinks.map((link)=>{
-            return <Link href={link.value}>{link.label}</Link>
+            return <Link href={link.value} key={link.label}>{link.label}</Link>
         })}
         <Button type={"button"} onClick={logOut} variant="outline">
           Logout
