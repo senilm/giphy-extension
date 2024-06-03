@@ -24,10 +24,12 @@ export const POST = async (req, { params }) => {
     
       if (existingFriendship) {
         await prisma.friends.delete({
-            where: {
-                userId: userId,
-                friendId: friendId,
-            },
+          where: {
+            unique_friends: {
+              userId: userId,
+              friendId: friendId,
+            }
+          }
           });
           return new Response(
             JSON.stringify({ message: "Successfully removed as friend!!" }),
@@ -35,13 +37,14 @@ export const POST = async (req, { params }) => {
           );
       }
     
-      // Create the friendship
       const friendship = await prisma.friends.create({
         data: {
-            unique_friends:{
-                userId: userId,
-                friendId: friendId,
-            }
+          user: {
+            connect: { id: userId }
+          },
+          friend: {
+            connect: { id: friendId }
+          }
         },
       });
 
