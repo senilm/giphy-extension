@@ -11,9 +11,12 @@ export const GET = async (req,res)=>{
             user:true,
             Comment:true,
             GifLike:true
+        },
+        orderBy:
+        {
+            createdAt:"desc"
         }
     })
-
     return new Response(JSON.stringify(gifs), { status: 200 });
 }
 
