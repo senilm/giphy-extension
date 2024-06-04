@@ -1,12 +1,42 @@
 import prisma from "@/app/db"
 
-export const GET = async (req,res)=>{
-    const gifs = await prisma.gif.findMany({
-        where:{
-            userId:{
-                not: null
+export const POST = async (req,res)=>{
+    const body = await req.json();
+    const {friends, userId} = body;
+    
+    const whereClause = [];
+
+    if(friends){
+        const friends = await prisma.friends.findMany({
+            where: {
+              OR: [
+                { userId: userId },
+                { friendId: userId }
+              ]
+            },
+            select:{
+                friendId:true
             }
-        },
+          });
+          const friendsArray = friends.map((item)=>item.friendId);
+          friendsArray.push(userId);
+          whereClause.push({
+            userId:{
+                in:friendsArray
+            }
+        }) 
+    }else{
+        whereClause.push({
+            userId:{
+                not:null
+            }
+        }) 
+    }
+
+    const gifs = await prisma.gif.findMany({
+        where: {
+            AND: [...whereClause],
+          },
         include:{
             user:true,
             Comment:true,

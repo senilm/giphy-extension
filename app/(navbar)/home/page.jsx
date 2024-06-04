@@ -5,12 +5,19 @@ import RightWidget from "@/components/RightWidget";
 import UploadGifModal from "@/components/UploadGifModal";
 import ScrollToTop from "@/components/ScrollToTop";
 import Cookies from "js-cookie";
-import { useState } from "react";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useEffect, useState } from "react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const Home = () => {
   const userId = Cookies.get("userId");
   const [friends, setFriends] = useState(false);
+  const [selected, setSelected] = useState(1);
+
+  const handleData = (bool, val) => {
+    setFriends(bool);
+    setSelected(val)
+  };
+
   return (
     <div
       key="1"
@@ -23,14 +30,19 @@ const Home = () => {
 
       <div className="flex-1 space-y-6 justify-center items-center">
         <div className="flex gap-4 justify-center">
-          <Tabs defaultValue="all" className="md:w-[50%]">
-            <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="all">All users</TabsTrigger>
-              <TabsTrigger value="frds">Friends only</TabsTrigger>
-            </TabsList>
-          </Tabs>
+          <div className="md:w-[50%]">
+            {" "}
+            <div className="grid w-full grid-cols-2  border px-3 py-1 bg-slate-100 rounded-xl">
+              <button className={` py-2 rounded-xl px-4  active:bg-gray-50 ${selected == 1 ? `bg-white`:``}`} onClick={()=>handleData(false, 1)}>
+                All users
+              </button>
+              <button className={` py-2 px-4 rounded-xl active:bg-gray-50 ${selected == 2 ? `bg-white`:``}`} onClick={()=>handleData(true, 2)}>
+                Friends only
+              </button>
+            </div>
+          </div>
         </div>
-        <GifFeed />
+        <GifFeed friends={friends}/>
       </div>
 
       <div className="md:sticky md:top-6 md:left-0 md:max-h-0">

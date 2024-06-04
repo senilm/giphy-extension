@@ -32,7 +32,7 @@ const AvatarBox = ({ username,userId, name = "User", frd = false, friendId=null 
       <div className=" flex gap-2">
       <div>
         <Avatar className="border">
-          <AvatarImage alt="User Avatar" src="/placeholder-avatar.jpg" />
+          <AvatarImage alt="User Avatar" src="" />
           <AvatarFallback>JD</AvatarFallback>
         </Avatar>
       </div>
