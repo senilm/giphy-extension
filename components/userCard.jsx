@@ -31,12 +31,17 @@ const UserCard = ({userId}) => {
         <div className="flex items-center gap-4 mb-4 ">
           <AvatarBox name={userData?.name} username={userData?.username} userId={userId}/>
         </div>
-        <div className="grid grid-cols-2 gap-4 mt-3">
+        {
+          userData?.bio && <div className=" font-mono text-gray-500 break-words">
+          "{userData?.bio}"
+        </div>
+        }
+        {/* <div className="grid grid-cols-2 gap-4 mt-3">
           <Numbers label={"Posts"}  number={userData?.gifCount}/>
           <Numbers label={"Friends"} number={userData?.friendsCount}/>
           <Numbers label={"Likes"} number={userData?.likesCount}/>
           <Numbers label={"comments"} number={userData?.commentsCount}/>
-        </div>
+        </div> */}
       </div>
   )
 }
