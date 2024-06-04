@@ -9,7 +9,6 @@ import { usePathname } from "next/navigation";
 
 const AvatarBox = ({ username,userId, name = "User", frd = false, friendId=null }) => {
   const pathname = usePathname();
-  console.log(pathname)
   const [friend, setFriend] = useState(pathname == "/home" ? false: true)
   const CUserId = Cookies.get('userId');
 

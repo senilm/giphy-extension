@@ -18,17 +18,17 @@ const Home = () => {
     >
       <div className="md:sticky md:top-6 md:left-0 md:max-h-0">
         <UserCard userId={userId} />
+        <UploadGifModal userId={userId} />
       </div>
 
-      <div className="flex-1 space-y-6">
-        <div className="flex gap-4">
-        <Tabs defaultValue="account" className="w-[50%]">
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="account">All users</TabsTrigger>
-            <TabsTrigger value="password">Friends only</TabsTrigger>
-          </TabsList>
-        </Tabs>
-        <UploadGifModal userId={userId} />
+      <div className="flex-1 space-y-6 justify-center items-center">
+        <div className="flex gap-4 justify-center">
+          <Tabs defaultValue="all" className="md:w-[50%]">
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="all">All users</TabsTrigger>
+              <TabsTrigger value="frds">Friends only</TabsTrigger>
+            </TabsList>
+          </Tabs>
         </div>
         <GifFeed />
       </div>

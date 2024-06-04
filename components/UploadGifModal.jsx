@@ -88,9 +88,9 @@ const UploadGifModal = ({ userId }) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className=" bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white font-medium py-3 px-6 rounded-md flex items-center justify-center transition-colors duration-300">
+        <Button className=" mt-4 w-full bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white font-medium py-3 px-6 rounded-md flex items-center justify-center transition-colors duration-300">
           <UploadIcon className="w-5 h-5 mr-2" />
-          Upload GIF
+          Post GIF
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[500px] w-full p-6 bg-white dark:bg-gray-950 rounded-lg shadow-lg">
