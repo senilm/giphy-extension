@@ -90,7 +90,7 @@ export const GET = async (req, { params }) => {
       return new Response([], { status: 200 });
     }
 
-    return new Response(comments, { status: 200 });
+    return new Response(JSON.stringify(comments), { status: 200 });
   } catch (error) {
     return new Response(JSON.stringify({ message: error.message }), {
       status: 400,

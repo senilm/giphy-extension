@@ -6,6 +6,7 @@ import { HeartFilledIcon, HeartIcon, MaximizeIcon, MessageCircleIcon } from "@/l
 import AvatarBox from "./AvatarBox";
 import { getTimeAgo } from "@/lib/getDate";
 import { useState } from "react";
+import AddComment from "./AddComment";
 
 const GifCardHome = ({id, url, caption, userId, Comment, GifLike, user, createdAt, gifyId,likes}) => {
 
@@ -72,9 +73,7 @@ const GifCardHome = ({id, url, caption, userId, Comment, GifLike, user, createdA
               <div className=" text-xs">{gifLikeCount}</div>
             </div>
             <div className="flex items-center gap-1">
-              <Button className="rounded-full" size="icon" variant="ghost">
-                <MessageCircleIcon className="w-5 h-5" />
-              </Button>
+            <AddComment gifId={id}/>
               <div className="text-xs">{Comment.length}</div>
             </div>
           </div>
