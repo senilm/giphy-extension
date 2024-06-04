@@ -7,7 +7,7 @@ export const PATCH = async (req, { params }) => {
     const { giphyId } = params;
     const data = await req.json();
     const { gifUrl } = data
-
+    let message;
     const gifData = await prisma.gif.upsert({
       where: { gifyId: giphyId },
       update: {},
@@ -31,6 +31,7 @@ export const PATCH = async (req, { params }) => {
           id: existingLike.id,
         },
       });
+      message = "remove"
     } else {
       await prisma.gifLike.create({
         data: {
@@ -38,6 +39,7 @@ export const PATCH = async (req, { params }) => {
           gif: { connect: { id: gifData.id } },
         },
       });
+      message = "add"
     }
     
     
@@ -58,7 +60,7 @@ export const PATCH = async (req, { params }) => {
     })
     cookies().set('likedGifs',JSON.stringify(likedGifs))
 
-    return NextResponse.json("Liked request done", { status: 200 });
+    return NextResponse.json(message, { status: 200 });
     
   } catch (error) {
     return new Response(error.message, { status: 400 });
