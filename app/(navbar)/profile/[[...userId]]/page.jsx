@@ -97,7 +97,7 @@ const Profile = ({ params }) => {
           <div className="text-lg font-bold">My GIFs</div>
           <div className="lg:columns-4 md:columns-3 sm:columns-2 columns-1 m-4">
             {userData?.Gifs?.map((gif, i) => (
-                <img src={gif.url} alt={gif.title} className="mb-4 rounded-sm w-full"></img>
+                <img src={gif.url} alt={gif.title} className="mb-4 rounded-sm w-full" key={i}></img>
             ))}
           </div>
         </div>
