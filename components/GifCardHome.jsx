@@ -1,11 +1,16 @@
+"use client"
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { HeartIcon, MaximizeIcon, MessageCircleIcon } from "@/lib/icons";
+import { HeartFilledIcon, HeartIcon, MaximizeIcon, MessageCircleIcon } from "@/lib/icons";
 import AvatarBox from "./AvatarBox";
 import { getTimeAgo } from "@/lib/getDate";
+import { useState } from "react";
 
-const GifCardHome = ({url, caption, userId, Comment, GifLike, user, createdAt, gifyId}) => {
+const GifCardHome = ({id, url, caption, userId, Comment, GifLike, user, createdAt, gifyId,likes}) => {
+
+  const [liked, setLiked] = useState(likes.includes(id) ? true : false)
+  const [gifLikeCount, setGifLikeCount] = useState(GifLike.length)
 
   const handleLike = async () => {
     try {
@@ -17,6 +22,14 @@ const GifCardHome = ({url, caption, userId, Comment, GifLike, user, createdAt, g
       })
 
       const res = await response.json();
+      if(response.ok){
+        setLiked(prev => !prev);
+        if(res == "remove"){
+          setGifLikeCount(prev => prev - 1);
+        }else if(res == "add"){
+          setGifLikeCount(prev => prev + 1);
+        }
+      }
     } catch (error) {
       console.error(error);
     }
@@ -54,9 +67,9 @@ const GifCardHome = ({url, caption, userId, Comment, GifLike, user, createdAt, g
           <div className="flex items-center gap-5 text-gray-500">
             <div className="flex items-center gap-1">
               <Button className="rounded-full" size="icon" variant="ghost" onClick={handleLike}>
-                <HeartIcon className="w-5 h-5" />
+                {liked ? <HeartFilledIcon className="w-5 h-5"/> : <HeartIcon className="w-5 h-5" />}
               </Button>
-              <div className=" text-xs">{GifLike.length}</div>
+              <div className=" text-xs">{gifLikeCount}</div>
             </div>
             <div className="flex items-center gap-1">
               <Button className="rounded-full" size="icon" variant="ghost">
