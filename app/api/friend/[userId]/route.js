@@ -86,7 +86,7 @@ export const GET = async (req, { params }) => {
         return friendship.userId === userId ? friendship.friend : friendship.user;
       });
 
-    return new Response(allFriends, { status: 200 });
+    return new Response(JSON.stringify(allFriends), { status: 200 });
   } catch (error) {
     return new Response(JSON.stringify({ message: error.message }), {
       status: 400,

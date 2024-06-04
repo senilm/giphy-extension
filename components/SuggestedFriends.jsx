@@ -18,9 +18,13 @@ const SuggestedFriends = () => {
     fetchCanBeFriends();
   }, []);
 
+  useEffect(() => {
+    console.log(canBeFriend);
+  }, [canBeFriend]);
+
   return <>
     {canBeFriend?.map((item)=>{
-        return <AvatarBox username={item?.username} key={item?.id} frd={true} friendId={item.id}/>
+        return <AvatarBox username={item?.username} userId={item.id} key={item?.id} frd={true} friendId={item.id}/>
     })}
   </>;
 };

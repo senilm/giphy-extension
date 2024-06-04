@@ -5,15 +5,17 @@ import { Button } from "./ui/button";
 import { UserCheckIcon, UserPlusIcon } from "@/lib/icons";
 import Cookies from "js-cookie";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 
-const AvatarBox = ({ username, name = "User", frd = false, friendId=null }) => {
-
-  const [friend, setFriend] = useState(false)
-  const userId = Cookies.get('userId');
+const AvatarBox = ({ username,userId, name = "User", frd = false, friendId=null }) => {
+  const pathname = usePathname();
+  console.log(pathname)
+  const [friend, setFriend] = useState(pathname == "/home" ? false: true)
+  const CUserId = Cookies.get('userId');
 
   const handleFriend = async () =>{
     try {
-      const response = await fetch(`api/friend/${userId}`,{
+      const response = await fetch(`api/friend/${CUserId}`,{
         method:"POST",
         body:JSON.stringify({
           friendId:friendId
@@ -39,7 +41,7 @@ const AvatarBox = ({ username, name = "User", frd = false, friendId=null }) => {
         <div className="text-sm font-medium truncate md:max-w-[8.5rem] ">
           {name}
         </div>
-        <Link href={`/profile/${username}`}>
+        <Link href={`/profile/${userId}`}>
           <div className="text-sm text-gray-500 truncate md:max-w-[8.5rem] hover:underline hover:text-blue-400 cursor-pointer">
             @{username}
           </div>

@@ -29,7 +29,7 @@ const UserCard = ({userId}) => {
   return (
     <div className="bg-gray-100 dark:bg-gray-800 rounded-md p-4 w-full md:w-64">
         <div className="flex items-center gap-4 mb-4 ">
-          <AvatarBox name={userData?.name} username={userData?.username}/>
+          <AvatarBox name={userData?.name} username={userData?.username} userId={userId.value}/>
         </div>
         <div className="grid grid-cols-2 gap-4 mt-3">
           <Numbers label={"Posts"}  number={userData?.gifCount}/>

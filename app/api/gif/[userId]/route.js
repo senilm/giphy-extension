@@ -1,4 +1,5 @@
 import prisma from "@/app/db";
+import { convertToGif } from "@/lib/convertToGif";
 import { generateUid } from "@/lib/generateUid";
 import { v2 as cloudinary } from "cloudinary";
 
@@ -79,12 +80,16 @@ export const POST = async (req, { params }) => {
       throw new Error("Failed to upload the file to Cloudinary.");
     }
 
-    const uid = generateUid(res.secure_url);
+    let ans = res.secure_url;
+    if(ans.endsWith('.mp4')){
+      ans = convertToGif(ans)
+    }
+    const uid = generateUid(ans);
 
     const GifC = await prisma.gif.create({
       data: {
         userId: userId,
-        url: res.secure_url,
+        url: ans,
         caption,
         gifyId: uid,
       },
@@ -94,7 +99,7 @@ export const POST = async (req, { params }) => {
       throw new Error("Failed to save the GIF in the database.");
     }
 
-    return new Response(JSON.stringify({ message: res.secure_url }), {
+    return new Response(JSON.stringify({ message: ans }), {
       status: 200,
     });
   } catch (error) {

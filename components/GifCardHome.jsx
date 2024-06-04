@@ -5,7 +5,7 @@ import { HeartIcon, MaximizeIcon, MessageCircleIcon } from "@/lib/icons";
 import AvatarBox from "./AvatarBox";
 import { getTimeAgo } from "@/lib/getDate";
 
-const GifCardHome = ({url, caption, Comment, GifLike, user, createdAt, gifyId}) => {
+const GifCardHome = ({url, caption, userId, Comment, GifLike, user, createdAt, gifyId}) => {
 
   const handleLike = async () => {
     try {
@@ -20,6 +20,10 @@ const GifCardHome = ({url, caption, Comment, GifLike, user, createdAt, gifyId}) 
     } catch (error) {
       console.error(error);
     }
+  }
+
+  if(url?.endsWith(".mp4")){
+    url = url.slice(0, -4) + ".gif";
   }
   return (
     <Card className="">
@@ -37,7 +41,7 @@ const GifCardHome = ({url, caption, Comment, GifLike, user, createdAt, gifyId}) 
       </div>
       <CardContent className="p-4">
         <div className="flex justify-between items-center mb-4">
-         <AvatarBox username={user?.username}/>
+         <AvatarBox username={user?.username} userId={userId}/>
           {/* <Button className="rounded-full" size="icon" variant="ghost">
           <MoveHorizontalIcon className="w-5 h-5" />
         </Button> */}

@@ -11,7 +11,7 @@ const Home = () => {
   const userId = cookieStore.get('userId');
 
   return (
-    <div key="1" className="flex flex-col unset md:flex-row gap-6 p-6 border rounded-xl bg-white relative">
+    <div key="1" className="flex flex-col unset md:flex-row gap-6 p-6 border rounded-xl bg-white relative min-h-[calc(100vh-4rem)]">
       <div className="md:sticky md:top-6 md:left-0 md:max-h-0">
       <UserCard userId={userId}/>
       </div>

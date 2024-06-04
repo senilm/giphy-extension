@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import GifCardHome from "./GifCardHome";
 import { useState, useEffect } from "react";
 
@@ -11,10 +11,10 @@ const GifFeed = () => {
       const res = await response.json();
 
       if (response.ok) {
-        setGifData(res)
+        setGifData(res);
       }
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   };
 
@@ -25,9 +25,11 @@ const GifFeed = () => {
   return (
     <>
       <div className="grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-3 gap-6">
-        {GifData.map((gif)=>{
-          return <GifCardHome {...gif} key={gif?.id}/>
-        })}
+        {GifData.length > 0
+          ? GifData.map((gif) => {
+              return <GifCardHome {...gif} key={gif?.id} />;
+            })
+          : <div className="col-span-3 text-center  text-lg mb-4 text-gray-700">No gifs uploaded by any user</div>}
       </div>
     </>
   );

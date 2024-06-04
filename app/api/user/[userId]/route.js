@@ -81,9 +81,12 @@ export const GET = async (req, {params}) => {
               {
                 _id: 1,
                 username: 1,
+                bio:1,
                 name:1,
                 email: 1,
                 createdAt: 1,
+                Friends:1,
+                Gifs:1,
                 commentsCount: {
                   $size: "$comments"
                 },

@@ -13,7 +13,7 @@ const EditProfileModal = () => {
     const [name, setName] = useState("Jared Palmer")
     const [username, setUsername] = useState("@jaredpalmer")
     const [bio, setBio] = useState("I'm a software engineer.")
-    const [profilePicture, setProfilePicture] = useState("/placeholder-avatar.jpg")
+    const [profilePicture, setProfilePicture] = useState(null)
     
     const handleProfilePictureUpload = (event) => {
       const file = event.target.files[0]
