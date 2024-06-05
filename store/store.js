@@ -24,7 +24,7 @@ const useStore = create(
     set((state) => ({ friends: [...state.friends, friend] })),
   removeFriend: (friendId) =>
     set((state) => ({
-      friends: state.friends.filter((friend) => friend.id !== friendId),
+      friends: state.friends.filter((friend) => friend !== friendId),
     })),
   
   setPosts: (newPosts) => set({ posts: newPosts }),

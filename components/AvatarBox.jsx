@@ -6,8 +6,10 @@ import { UserCheckIcon, UserPlusIcon } from "@/lib/icons";
 import Cookies from "js-cookie";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
+import useStore from "@/store/store";
 
 const AvatarBox = ({ username,userId, name = "User", frd = false, friendId=null }) => {
+  const {friends, addFriend, removeFriend} = useStore();
   const pathname = usePathname();
   const [friend, setFriend] = useState(pathname == "/home" ? false: true)
   const CUserId = Cookies.get('userId');
@@ -21,6 +23,14 @@ const AvatarBox = ({ username,userId, name = "User", frd = false, friendId=null 
         })
       })
       const res = await response.json();    
+      if(response.ok){
+        if(res?.message == "Add"){
+          addFriend(friendId)
+        }else if(res?.message == 'Remove'){
+          removeFriend(friendId)
+        }
+        setIsFriend(prev => !prev)
+      } 
       setFriend(prev => !prev)
     } catch (error) {
       console.error(error);

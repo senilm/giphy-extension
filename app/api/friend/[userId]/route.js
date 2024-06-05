@@ -32,7 +32,7 @@ export const POST = async (req, { params }) => {
           }
           });
           return new Response(
-            JSON.stringify({ message: "Successfully removed as friend!!" }),
+            JSON.stringify({ message: "Remove" }),
             { status: 200 }
           );
       }
@@ -55,7 +55,7 @@ export const POST = async (req, { params }) => {
       }
     
     return new Response(
-      JSON.stringify({ message: "Successfully added as friend!!" }),
+      JSON.stringify({ message: "Add" }),
       { status: 200 }
     );
   } catch (error) {

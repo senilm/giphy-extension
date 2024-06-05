@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 import useStore from "@/store/store";
 
 const GifFeed = ({friends}) => {
-  const {user, setLikedPosts} = useStore()
+  const {user, setLikedPosts, friends : TotalFriends} = useStore()
   const [GifData, setGifData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [likes, setLikes] = useState([])
@@ -45,7 +45,7 @@ const GifFeed = ({friends}) => {
     if(userId){
       fetchGifData();
     }
-  }, [friends, userId]);
+  }, [friends, userId, TotalFriends]);
 
   useEffect(() => {
     if(userId){
@@ -61,7 +61,7 @@ const GifFeed = ({friends}) => {
           ? GifData.map((gif) => {
             return <GifCardHome {...gif} key={gif?.id}/>;
           })
-          : (<div className=" ">No gifs uploaded by any user</div>)
+          : (<div className="col-span-3 text-center  text-lg mb-4 text-gray-700">{!friends ? "No gifs uploaded by any user" : "No gifs uploaded by your friends"}</div>)
         }
         </div>
     </>

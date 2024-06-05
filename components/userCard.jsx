@@ -6,7 +6,7 @@ import useStore from "@/store/store"
 import Cookies from "js-cookie"
 
 const UserCard = () => {
-  const {user, totalLikes, totalComments, friends, posts, setUser,setPosts,setJoinDate,  setFriends, setTotalLikes,setTotalComments} = useStore();
+  const {user, totalLikes, totalComments, friends, posts, setUser,setPosts,setJoinDate, setFriends, setTotalLikes,setTotalComments} = useStore();
   const userId = user?.id || Cookies.get("userId");
 
   const fetchUserData = async () => {
@@ -23,7 +23,7 @@ const UserCard = () => {
           username: res?.username,          
         });
         setJoinDate(res?.createdAt?.$date)
-        setFriends(res?.Friends)
+        setFriends(res?.Friends.map((item)=>item?.friendId?.$oid))
         setPosts(res?.Gifs)
         setTotalLikes(res?.likesCount);
         setTotalComments(res?.commentsCount)
