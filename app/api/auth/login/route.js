@@ -54,7 +54,7 @@ export const POST = async (req, res) => {
     });
     const user = userCredential.user;
 
-    return new Response(JSON.stringify(user), { status: 200 });
+    return new Response(JSON.stringify({user:user, userId:userData.id}), { status: 200 });
   } catch (error) {
     return new Response(JSON.stringify({ message: error.message }), {
       status: 400,

@@ -15,8 +15,12 @@ import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { useEffect, useState } from "react";
+import useStore from "@/store/store";
+import Cookies from "js-cookie";
 
-const UploadGifModal = ({ userId }) => {
+const UploadGifModal = () => {
+  const {user} = useStore()
+  const userId = user?.id || Cookies.get("userId")
   const [selectedFile, setSelectedFile] = useState(null);
   const [caption, setCaption] = useState("");
   const [open, setOpen] = useState(false);
@@ -78,8 +82,6 @@ const UploadGifModal = ({ userId }) => {
         method:"POST",
         body:formData
       })
-
-      
       setOpen(false); 
     }
     setLoading(false); 

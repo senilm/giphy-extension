@@ -7,11 +7,17 @@ import AvatarBox from "./AvatarBox";
 import { getTimeAgo } from "@/lib/getDate";
 import { useState } from "react";
 import AddComment from "./AddComment";
+import useStore from "@/store/store";
 
-const GifCardHome = ({id, url, caption, userId, Comment, GifLike, user, createdAt, gifyId,likes}) => {
-
-  const [liked, setLiked] = useState(likes.includes(id) ? true : false)
+const GifCardHome = ({id, url, caption, userId, Comment, GifLike, user, createdAt, gifyId}) => {
+  const {likedPosts, removeLikedPosts, addLikedPosts, addLikeToPost} = useStore();
+  const [liked, setLiked] = useState(likedPosts?.includes(id) ? true : false)
   const [gifLikeCount, setGifLikeCount] = useState(GifLike.length)
+  const [commentCount, setCommentCount] = useState(Comment.length)
+
+  const increaseComment = () => {
+    setCommentCount(prev => prev + 1);
+  }
 
   const handleLike = async () => {
     try {
@@ -21,13 +27,14 @@ const GifCardHome = ({id, url, caption, userId, Comment, GifLike, user, createdA
           gifUrl:url
         })
       })
-
       const res = await response.json();
       if(response.ok){
         setLiked(prev => !prev);
         if(res == "remove"){
+          removeLikedPosts(id)
           setGifLikeCount(prev => prev - 1);
         }else if(res == "add"){
+          addLikedPosts(id)
           setGifLikeCount(prev => prev + 1);
         }
       }
@@ -73,8 +80,8 @@ const GifCardHome = ({id, url, caption, userId, Comment, GifLike, user, createdA
               <div className=" text-xs">{gifLikeCount}</div>
             </div>
             <div className="flex items-center gap-1">
-            <AddComment gifId={id}/>
-              <div className="text-xs">{Comment.length}</div>
+            <AddComment gifId={id} increaseComment={increaseComment}/>
+              <div className="text-xs">{commentCount}</div>
             </div>
           </div>
           <div className="text-xs text-gray-300 text-right mt-2 mb-[-5px]">

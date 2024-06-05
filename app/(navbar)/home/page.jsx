@@ -24,8 +24,8 @@ const Home = () => {
       className="flex flex-col unset md:flex-row gap-6 p-6 border rounded-xl bg-white relative min-h-[calc(100vh-4rem)]"
     >
       <div className="md:sticky md:top-6 md:left-0 md:max-h-0">
-        <UserCard userId={userId} />
-        <UploadGifModal userId={userId} />
+        <UserCard />
+        <UploadGifModal/>
       </div>
 
       <div className="flex-1 space-y-6 justify-center items-center">
@@ -33,10 +33,10 @@ const Home = () => {
           <div className="md:w-[50%]">
             {" "}
             <div className="grid w-full grid-cols-2  border px-3 py-1 bg-slate-100 rounded-xl">
-              <button className={` py-2 rounded-xl px-4  active:bg-gray-50 ${selected == 1 ? `bg-white`:``}`} onClick={()=>handleData(false, 1)}>
+              <button className={` py-2 rounded-xl px-4   ${selected == 1 ? `bg-white`:``}`} onClick={()=>handleData(false, 1)}>
                 All users
               </button>
-              <button className={` py-2 px-4 rounded-xl active:bg-gray-50 ${selected == 2 ? `bg-white`:``}`} onClick={()=>handleData(true, 2)}>
+              <button className={` py-2 px-4 rounded-xl  ${selected == 2 ? `bg-white`:``}`} onClick={()=>handleData(true, 2)}>
                 Friends only
               </button>
             </div>

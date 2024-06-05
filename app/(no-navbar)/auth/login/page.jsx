@@ -10,6 +10,8 @@ import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { KeyRoundIcon, Loader2 } from "lucide-react";
+import useStore from "@/store/store";
+
 const initialState = {
   email: "",
   password: "",
@@ -20,7 +22,7 @@ const Login = () => {
   const [formData, setFormData] = useState(initialState);
   const [loading, setLoading] = useState(false);
   const [errMsg, setErrMsg] = useState("");
-
+  const {setUserId} = useStore();
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -39,7 +41,7 @@ const Login = () => {
       }
   
       const userData = await response.json();
-  
+      setUserId(userData.userId)
       Cookies.set('isAuth', true);
       setFormData(initialState);
       router.push('/home');
@@ -50,7 +52,6 @@ const Login = () => {
       setLoading(false);
     }
   };
-
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-100 px-4 py-12 dark:bg-gray-950">

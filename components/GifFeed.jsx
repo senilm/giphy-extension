@@ -2,25 +2,28 @@
 import GifCardHome from "./GifCardHome";
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
+import useStore from "@/store/store";
 
 const GifFeed = ({friends}) => {
+  const {user, setLikedPosts} = useStore()
   const [GifData, setGifData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [likes, setLikes] = useState([])
-  const userId = Cookies.get('userId');
+  const userId = user?.id;
 
   const likedGifs = async () => {
     try {
       const response = await fetch(`api/like/getLikes/${userId}`,{method:"GET"});
       const likedGifs = await response.json();
       if(response.ok){
+        setLikedPosts(likedGifs)
         setLikes(likedGifs)
       }
     } catch (error) {
       console.error(error);
     }
   }
-
+  
   const fetchGifData = async () => {
     try {
       setLoading(true)
@@ -39,12 +42,16 @@ const GifFeed = ({friends}) => {
   };
 
   useEffect(() => {
-    fetchGifData();
-  }, [friends]);
+    if(userId){
+      fetchGifData();
+    }
+  }, [friends, userId]);
 
   useEffect(() => {
-    likedGifs();
-  }, []);
+    if(userId){
+      likedGifs();
+    }
+  }, [userId]);
 
   return (
     <>
@@ -52,7 +59,7 @@ const GifFeed = ({friends}) => {
         {loading? (<div className="col-span-3 text-center  text-lg mb-4 text-gray-700">loading</div>) : 
         GifData.length > 0
           ? GifData.map((gif) => {
-            return <GifCardHome {...gif} key={gif?.id} likes={likes}/>;
+            return <GifCardHome {...gif} key={gif?.id}/>;
           })
           : (<div className=" ">No gifs uploaded by any user</div>)
         }

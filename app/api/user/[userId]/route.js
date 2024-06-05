@@ -43,7 +43,7 @@ export const GET = async (req, {params}) => {
           {
             $lookup:
               {
-                from: "comment",
+                from: "Comment",
                 localField: "_id",
                 foreignField: "userId",
                 as: "comments"

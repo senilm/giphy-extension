@@ -16,8 +16,10 @@ import { Button } from "./ui/button";
 import { Label } from "./ui/label";
 import { Textarea } from "./ui/textarea";
 import ShowComment from "./ShowComment";
+import useStore from "@/store/store";
 
-const AddComment = ({ gifId }) => {
+const AddComment = ({ gifId, increaseComment }) => {
+  const {reduceTotalComments, increaseTotalComments} = useStore()
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
@@ -46,8 +48,8 @@ const AddComment = ({ gifId }) => {
           });
           const res = await data.json()
           if (data.ok) {
-            setOldComments(res)
             console.log(res)
+            setOldComments(res);
           }
     } catch (error) {
         console.error(error)
@@ -55,14 +57,16 @@ const AddComment = ({ gifId }) => {
   }
 
   useEffect(()=>{
-    fetchOldComments()
-  },[])
+    if(open){
+      fetchOldComments()
+    }
+  },[open])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newErrors = {};
     if (!comment || comment.trim().length == 0) {
-      newErrors.comment = "Please write a comment to add.";
+      newErrors.comment = "Please write a comment.";
     }
     setErrors(newErrors);
 
@@ -74,6 +78,8 @@ const AddComment = ({ gifId }) => {
           body: JSON.stringify({ userId, comment }),
         });
         if(data.ok){
+            increaseTotalComments();
+            increaseComment();
             setOpen(false);
         }
       } catch (error) {
@@ -99,7 +105,7 @@ const AddComment = ({ gifId }) => {
                 oldComments.map((comment, i) => {
                     return <ShowComment key={i} {...comment} /> 
                 })
-            ): "No comments"}
+            ): (<div className=" text-gray-400 text-center">Be the first one to comment... </div>)}
         </div>
         <form onSubmit={handleSubmit}>
           <div className="grid gap-4 py-4">

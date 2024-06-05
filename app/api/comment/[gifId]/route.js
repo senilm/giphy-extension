@@ -84,6 +84,9 @@ export const GET = async (req, { params }) => {
       include: {
         user: true,
       },
+      orderBy:{
+        createdAt:"desc"
+      }
     });
 
     if (!comments) {
