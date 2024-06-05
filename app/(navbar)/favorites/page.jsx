@@ -17,7 +17,6 @@ const Favorite = () => {
       if (data.ok) {
         const res = await data.json();
         setFavoriteData(res);
-        console.log(res);
       }
     } catch (error) {
       console.error("Error fetching data:", error);

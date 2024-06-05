@@ -9,7 +9,6 @@ const Explore = ({params}) => {
     const {searchTag} = params; 
     const [searchTerm, setSearchTerm] = useState(searchTag ? searchTag[0] : "");
     const [gifData, setGifData] = useState(null);
-    const [type, setType] = useState("trending");
     const [currentPage, setCurrentPage] = useState(1);
     const apiKey = "GlVGYHkr3WSBnllca54iNt0yFbjz7L65";
     const limit = 12;
