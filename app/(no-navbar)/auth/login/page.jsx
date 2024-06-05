@@ -34,7 +34,7 @@ const Login = () => {
   
       if (!response.ok) {
         const errorData = await response.json();
-        setErrMsg(errorData.message);
+        setErrMsg(errorData.message.startsWith("Firebase") ? "Invalid credentials, Please try again" : "Failed to login, Please try again");
         return;
       }
   
@@ -95,7 +95,7 @@ const Login = () => {
                 type="password"
               />
             </div>
-            <div className="flex items-center justify-between">
+            {/* <div className="flex items-center justify-between">
               <div className="flex items-center">
                 <Checkbox id="remember-me" name="remember-me" />
                 <Label className="ml-2" htmlFor="remember-me">
@@ -110,7 +110,7 @@ const Login = () => {
                   Forgot your password?
                 </Link>
               </div>
-            </div>
+            </div> */}
             <div>
               <Button className="w-full" type="submit" disabled={loading}>
                 {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : ""}
@@ -119,7 +119,7 @@ const Login = () => {
             </div>
           </form>
           <div className="mt-6">
-            <div className="relative">
+            {/* <div className="relative">
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-gray-300 dark:border-gray-700" />
               </div>
@@ -137,11 +137,11 @@ const Login = () => {
                   variant="outline"
                   disabled
                 >
-                  {/* <ChromeIcon className="mr-2 h-5 w-5" /> */}
+                  <ChromeIcon className="mr-2 h-5 w-5" />
                   Sign in with Google
                 </Button>
               </div>
-            </div>
+            </div> */}
             <div className="text-sm mt-3 text-center">
             Don&apos;t have an account? <Link href={"/auth/register"} className=" text-blue-400">Create new account</Link>
               </div>
