@@ -13,12 +13,18 @@ datasource db {
 // User model
 model User {
   id        String    @id @default(auto()) @map("_id") @db.ObjectId
-  username  String
-  email     String @unique
+  name      String?
+  username  String    @unique
+  bio       String?
+  email     String    @unique
   createdAt DateTime  @default(now())
   Login     Login[]
   GifLike   GifLike[]
   Search    Search[]
+  Gif       Gif[]
+  Comment   Comment[]
+  Friends   Friends[] @relation("UserFriends")
+  FriendOf  Friends[] @relation("FriendOf")
 }
 
 model Login {
@@ -28,13 +34,16 @@ model Login {
   userId    String   @db.ObjectId
 }
 
-// Gif model
 model Gif {
   id        String    @id @default(auto()) @map("_id") @db.ObjectId
   url       String
-  gifyId    String @unique
+  gifyId    String    @unique
   createdAt DateTime  @default(now())
+  user      User?     @relation(fields: [userId], references: [id])
+  userId    String?   @db.ObjectId
+  caption   String?
   GifLike   GifLike[]
+  Comment   Comment[]
 }
 
 model GifLike {
@@ -45,13 +54,13 @@ model GifLike {
   gifId     String   @db.ObjectId
   createdAt DateTime @default(now())
 
-  @@unique([userId,gifId],name: "giflikeid")
+  @@unique([userId, gifId], name: "giflikeid")
 }
 
 // SearchTerm model
 model SearchTerm {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  keyword   String  @unique
+  keyword   String   @unique
   createdAt DateTime @default(now())
   Search    Search[]
 }
@@ -63,4 +72,25 @@ model Search {
   user         User       @relation(fields: [userId], references: [id])
   userId       String     @db.ObjectId
   createdAt    DateTime   @default(now())
+}
+
+model Comment {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @db.ObjectId
+  gif       Gif      @relation(fields: [gifId], references: [id])
+  gifId     String   @db.ObjectId
+  comment   String
+  createdAt DateTime @default(now())
+}
+
+model Friends {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  user      User     @relation("UserFriends", fields: [userId], references: [id])
+  userId    String   @db.ObjectId
+  friend    User     @relation("FriendOf", fields: [friendId], references: [id])
+  friendId  String   @db.ObjectId
+  createdAt DateTime @default(now())
+
+  @@unique([userId, friendId], name: "unique_friends")
 }

@@ -6,8 +6,6 @@ export const GET = async (req, { params }) => {
   try {
     const { searchTerm } = params;
     const [term, page] = searchTerm;
-    console.log(term,page);
-    // console.log(params);
     // const { gif_url } = await req.json();
 
     const userId = cookies().get("userId");

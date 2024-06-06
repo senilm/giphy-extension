@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { auth } from "@/lib/firebase";
 import { Button } from "./ui/button";
 import { usePathname } from "next/navigation";
+import { navLinks } from "@/lib/consts";
 
 const Navbar = () => {
   const router = useRouter();
@@ -19,7 +20,7 @@ const Navbar = () => {
     Cookies.remove("userId");
     router.replace("/");
   };
-
+  const isActive = (href) => pathname.includes(href);
   return (
     <nav className="py-5 px-8 flex justify-between items-center">
       <Link href={"/"}>
@@ -31,32 +32,13 @@ const Navbar = () => {
           className=""
         />
       </Link>
-
-      <div className="gap-5 flex items-center">
-        {/* {pathname !== "/favorites" ? (
-          <Link href={"/favorites"}>
-            <Button type={"button"} label={"Favorites"}></Button>
-          </Link>
-        ) : (
-          <Link href={"/"}>
-            <Button type={"button"} label={"Home"}></Button>
-          </Link>
-        )} */}
-          <Link href={"/favorites"}>
-            Favorites
-          </Link>
-          <Link href={"/home"}>
-            Home
-          </Link>
-          <Link href={"/explore"}>
-            Explore
-          </Link>
-          <Link href={"/profile"}>
-            Profile
-          </Link>
-        {/* <Button type={"button"} label={'Logout'} action={logOut}></Button> */}
-        {/* <LogoutBtn logOut={logOut} /> */}
-        <Button type={"button"} onClick={logOut} variant="outline">Logout</Button>
+      <div className="gap-5 flex items-center transition-all">
+        {navLinks.map((link)=>{
+            return <Link href={link.value} key={link.label} className={isActive(link.value) ? ' underline-offset-4 underline' : ''}>{link.label}</Link>
+        })}
+        <Button type={"button"} onClick={logOut} variant="outline">
+          Logout
+        </Button>
       </div>
     </nav>
   );

@@ -1,20 +1,19 @@
 import prisma from "@/app/db";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
-import Cookies from "js-cookie";
+
 export const PATCH = async (req, { params }) => {
   try {
     const { giphyId } = params;
     const data = await req.json();
     const { gifUrl } = data
-    // console.log(gifUrl);
-
-
+    let message;
     const gifData = await prisma.gif.upsert({
       where: { gifyId: giphyId },
       update: {},
-      create: { gifyId: giphyId, url: gifUrl }, // Replace 'your_gif_url' with the actual gif URL
+      create: { gifyId: giphyId, url: gifUrl },
     });
+    
     const userId = cookies().get("userId");
 
     const existingLike = await prisma.gifLike.findUnique({
@@ -32,6 +31,7 @@ export const PATCH = async (req, { params }) => {
           id: existingLike.id,
         },
       });
+      message = "remove"
     } else {
       await prisma.gifLike.create({
         data: {
@@ -39,6 +39,7 @@ export const PATCH = async (req, { params }) => {
           gif: { connect: { id: gifData.id } },
         },
       });
+      message = "add"
     }
     
     
@@ -59,7 +60,7 @@ export const PATCH = async (req, { params }) => {
     })
     cookies().set('likedGifs',JSON.stringify(likedGifs))
 
-    return NextResponse.json("Liked request done", { status: 200 });
+    return NextResponse.json(message, { status: 200 });
     
   } catch (error) {
     return new Response(error.message, { status: 400 });

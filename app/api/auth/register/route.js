@@ -8,6 +8,7 @@ export const POST = async (req, res) => {
   try {
     const data = await req.json()
     const { name, email, password } = data;
+    
     if (!name || !email || !password) {
       return new Response(
         JSON.stringify({ message: "Please provide required details" }),
@@ -15,6 +16,7 @@ export const POST = async (req, res) => {
       );
     }
     await createUserWithEmailAndPassword(auth, email, password);
+
     const user = await prisma.user.create({
       data: {
         username:name,
@@ -22,8 +24,10 @@ export const POST = async (req, res) => {
       },
     })
    
-    return NextResponse.json(user, {status:200})
+    return new Response(JSON.stringify(user), { status: 200 });
   } catch (error) {
-    return new Response( error.message,{status:400});
+    return new Response(JSON.stringify({ message: error.message }), {
+      status: 400,
+    });
   }
 };

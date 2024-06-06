@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Cookies from "js-cookie";
+import { Loader2 } from "lucide-react";
 
 const initialState = {
   name: "",
@@ -19,12 +20,12 @@ const initialState = {
 const Register = () => {
   const router = useRouter();
   const [formData, setFormData] = useState(initialState);
-  const [loading, isLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [errMsg, setErrMsg] = useState("");
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    isLoading(true)
+    setLoading(true)
     try {
       const data = await fetch("/api/auth/register", {
         method: "POST",
@@ -43,7 +44,7 @@ const Register = () => {
       console.log(error.message);
       setErrMsg('An error occurred during Registration. Please try again.');
     }finally{
-      isLoading(false)
+      setLoading(false)
     }
   };
 
@@ -107,9 +108,10 @@ const Register = () => {
           </div>
 
           <div>
-            <Button className={`w-full ${loading ? 'bg-gray-500 cursor-not-allowed' : ''}`} type="submit" disabled={isLoading}>
-            {loading ? 'Please wait...':'Register'}
-            </Button>
+          <Button className="w-full" type="submit" disabled={loading}>
+                {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : ""}
+              {loading ? 'Please wait...':'Register'}
+              </Button>
           </div>
         </form>
         <div className="mt-6">

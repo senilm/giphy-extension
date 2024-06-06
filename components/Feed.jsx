@@ -1,16 +1,11 @@
 import GifCard from "./GifCard";
-import Cookies from "js-cookie";
 
 const Feed = ({ gifData }) => {
-  console.log(gifData)
-  const likedGifs = Cookies.get('likedGifs')
   return (
     <>
-      <div className="flex  min-h-screen flex-wrap justify-center gap-8 py-4 rounded">
+      <div className="lg:columns-4 md:columns-3 sm:columns-2 columns-1 m-4">
         {gifData?.data.map((gif,i) => (
-          <div key={gif.id + i}>
-          <GifCard gif={gif} likedGifs={likedGifs} />
-          </div>
+          <GifCard key={gif.id + i} gif={gif}  />
         ))}
       </div>
     </>

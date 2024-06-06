@@ -9,6 +9,9 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
+import { KeyRoundIcon, Loader2 } from "lucide-react";
+import useStore from "@/store/store";
+
 const initialState = {
   email: "",
   password: "",
@@ -19,7 +22,7 @@ const Login = () => {
   const [formData, setFormData] = useState(initialState);
   const [loading, setLoading] = useState(false);
   const [errMsg, setErrMsg] = useState("");
-
+  const {setUserId} = useStore();
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -33,23 +36,22 @@ const Login = () => {
   
       if (!response.ok) {
         const errorData = await response.json();
-        setErrMsg(errorData.message);
+        setErrMsg(errorData.message.startsWith("Firebase") ? "Invalid credentials, Please try again" : "Failed to login, Please try again");
         return;
       }
   
       const userData = await response.json();
-  
+      setUserId(userData.userId)
       Cookies.set('isAuth', true);
       setFormData(initialState);
       router.push('/home');
     } catch (error) {
       console.error('Login error:', error);
       setErrMsg('An error occurred during login. Please try again.');
-    } finally {
+    } finally { 
       setLoading(false);
     }
   };
-
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-100 px-4 py-12 dark:bg-gray-950">
@@ -94,7 +96,7 @@ const Login = () => {
                 type="password"
               />
             </div>
-            <div className="flex items-center justify-between">
+            {/* <div className="flex items-center justify-between">
               <div className="flex items-center">
                 <Checkbox id="remember-me" name="remember-me" />
                 <Label className="ml-2" htmlFor="remember-me">
@@ -109,15 +111,16 @@ const Login = () => {
                   Forgot your password?
                 </Link>
               </div>
-            </div>
+            </div> */}
             <div>
-              <Button className="w-full" type="submit">
+              <Button className="w-full" type="submit" disabled={loading}>
+                {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : ""}
               {loading ? 'Please wait...':'Login'}
               </Button>
             </div>
           </form>
           <div className="mt-6">
-            <div className="relative">
+            {/* <div className="relative">
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-gray-300 dark:border-gray-700" />
               </div>
@@ -135,11 +138,11 @@ const Login = () => {
                   variant="outline"
                   disabled
                 >
-                  {/* <ChromeIcon className="mr-2 h-5 w-5" /> */}
+                  <ChromeIcon className="mr-2 h-5 w-5" />
                   Sign in with Google
                 </Button>
               </div>
-            </div>
+            </div> */}
             <div className="text-sm mt-3 text-center">
             Don&apos;t have an account? <Link href={"/auth/register"} className=" text-blue-400">Create new account</Link>
               </div>
