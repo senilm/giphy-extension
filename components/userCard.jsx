@@ -20,7 +20,8 @@ const UserCard = () => {
           id:res?._id?.$oid,
           bio:res?.bio,
           name:res?.name,
-          username: res?.username,          
+          username: res?.username,   
+          profilePicture:res?.profilePicture       
         });
         setJoinDate(res?.createdAt?.$date)
         setFriends(res?.Friends.map((item)=>item?.friendId?.$oid))
@@ -42,11 +43,11 @@ const UserCard = () => {
   return (
     <div className="bg-gray-100 dark:bg-gray-800 rounded-md p-4 w-full md:w-64">
         <div className="flex items-center gap-4 mb-4 ">
-          <AvatarBox name={user?.name} username={user?.username} userId={userId}/>
+          <AvatarBox name={user?.name} username={user?.username} profilePicture={user?.profilePicture} userId={userId}/>
         </div>
         {
           user?.bio && <div className=" font-mono text-gray-500 break-words">
-          "{user?.bio}"
+          &quot;{user?.bio}&quot;
         </div>
         }
         <div className="grid grid-cols-2 gap-4 mt-3">
