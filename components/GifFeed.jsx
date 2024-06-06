@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import useStore from "@/store/store";
 
-const GifFeed = ({friends}) => {
+const GifFeed = ({friends, newPost}) => {
   const {user, setLikedPosts, friends : TotalFriends} = useStore()
   const [GifData, setGifData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -32,7 +32,6 @@ const GifFeed = ({friends}) => {
 
       if (response.ok) {
         setGifData(res);
-
       }
     } catch (error) {
       console.error(error);
@@ -45,7 +44,7 @@ const GifFeed = ({friends}) => {
     if(userId){
       fetchGifData();
     }
-  }, [friends, userId, TotalFriends]);
+  }, [friends, userId, TotalFriends, newPost]);
 
   useEffect(() => {
     if(userId){
