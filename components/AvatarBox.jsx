@@ -8,7 +8,7 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 import useStore from "@/store/store";
 
-const AvatarBox = ({ username,userId, name = "User", frd = false, friendId=null }) => {
+const AvatarBox = ({ username,userId,profilePicture=null, name = "User", frd = false, friendId=null }) => {
   const {friends, addFriend, removeFriend} = useStore();
   const pathname = usePathname();
   const [friend, setFriend] = useState(pathname == "/home" ? false: true)
@@ -29,7 +29,7 @@ const AvatarBox = ({ username,userId, name = "User", frd = false, friendId=null 
         }else if(res?.message == 'Remove'){
           removeFriend(friendId)
         }
-        setIsFriend(prev => !prev)
+        setFriend(prev => !prev)
       } 
       setFriend(prev => !prev)
     } catch (error) {
@@ -42,7 +42,7 @@ const AvatarBox = ({ username,userId, name = "User", frd = false, friendId=null 
       <div className=" flex gap-2">
       <div>
         <Avatar className="border">
-          <AvatarImage alt="User Avatar" src="" />
+          <AvatarImage alt="User Avatar" src={profilePicture? profilePicture: ""} />
           <AvatarFallback>JD</AvatarFallback>
         </Avatar>
       </div>
