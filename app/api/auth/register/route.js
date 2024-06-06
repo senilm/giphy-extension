@@ -32,6 +32,7 @@ export const POST = async (req, res) => {
       data: {
         username:name,
         email: email,
+        name:name,
       },
     })
    
