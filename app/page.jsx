@@ -4,10 +4,8 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-[100dvh]">
       <header className="px-4 lg:px-6 h-14 flex items-center">
-        <Link className="flex items-center justify-center" href="#">
-          <span className="text-black font-bold px-8 text-xl">GIFBook</span>
-        </Link>
-      </header>
+        <img src="/gif.png" alt="" className="w-14 h-14 ml-10"></img>
+       </header>
       <main className="flex-1">
         {/* Hero   */}
         <section className="w-full pt-12 md:pt-24 lg:pt-32 border-t">

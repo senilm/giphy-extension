@@ -23,14 +23,8 @@ const Navbar = () => {
   const isActive = (href) => pathname.includes(href);
   return (
     <nav className="py-5 px-8 flex justify-between items-center">
-      <Link href={"/"}>
-        <Image
-          src={`https://upload.wikimedia.org/wikipedia/commons/8/82/Giphy-logo.svg`}
-          width={150}
-          height={100}
-          alt="GIPHY"
-          className=""
-        />
+      <Link href={"/home"} className=" text-lg font-bold flex items-center gap-4">
+        <img src="/gif.png" alt="" className="w-14 h-14"></img>
       </Link>
       <div className="gap-5 flex items-center transition-all">
         {navLinks.map((link)=>{
