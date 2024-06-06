@@ -14,13 +14,19 @@ import { useEffect, useState } from "react";
 import { getTimeAgo } from "@/lib/getDate";
 import Feed from "@/components/Feed";
 import GifCard from "@/components/GifCard";
+import useStore from "@/store/store";
 
 const Profile = ({ params }) => {
+  const {user, totalLikes, friends, joinDate} = useStore();
   const { userId } = params;
   let fetchId = userId ? userId[0] : Cookies.get("userId");
   const [userData, setUserData] = useState({});
   const [useFriends, setUserFriends] = useState([]);
+  const [picChange, SetPicChange] = useState(false)
 
+  const changePicFunction = () => {
+    SetPicChange(prev => !prev)
+  }
   const fetchFriends = async () => {
     try {
       const res = await fetch(`/api/friend/${fetchId}`, {
@@ -48,8 +54,11 @@ const Profile = ({ params }) => {
 
   useEffect(() => {
     fetchData();
+  }, [picChange]);
+
+  useEffect(()=>{
     fetchFriends();
-  }, []);
+  },[friends])
 
   return (
     <div className="p-6 border rounded-xl bg-white">
@@ -60,16 +69,16 @@ const Profile = ({ params }) => {
               userId={userData?._id?.$oid}
               username={userData?.username}
               name={userData?.name}
+              profilePicture={userData?.profilePicture}
             />
-            <Button className="ml-auto" size="icon" variant="outline">
-              <EditProfileModal />
-              <span className="sr-only">Edit profile</span>
-            </Button>
+            {fetchId == Cookies.get("userId")  ? 
+              <EditProfileModal bio={userData?.bio} pic={userData?.profilePicture} changePicFunction={changePicFunction}/>
+            :""}
           </div>
 
           {/* bio */}
           <div className="text-sm text-gray-500 dark:text-gray-400">
-            {userData?.bio}
+            {userData?.bio || user?.bio}
           </div>
 
           {/* details */}
@@ -90,15 +99,17 @@ const Profile = ({ params }) => {
         </div>
 
         {/* friends */}
+        {fetchId == Cookies.get("userId") ? 
         <FriendList friendData={useFriends} />
+        :""}
 
         {/* gifs */}
         <div className="col-span-full">
           <div className="text-lg font-bold">My GIFs</div>
           <div className="lg:columns-4 md:columns-3 sm:columns-2 columns-1 m-4">
-            {userData?.Gifs?.map((gif, i) => (
+            {userData?.Gifs?.length > 0 ? userData?.Gifs?.map((gif, i) => (
                 <img src={gif.url} alt={gif.title} className="mb-4 rounded-sm w-full" key={i}></img>
-            ))}
+            )) : <div className=" text-gray-400 text-sm">No GIFS to show</div>}
           </div>
         </div>
       </div>

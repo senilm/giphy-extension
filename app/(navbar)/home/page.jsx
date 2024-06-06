@@ -12,7 +12,11 @@ const Home = () => {
   const userId = Cookies.get("userId");
   const [friends, setFriends] = useState(false);
   const [selected, setSelected] = useState(1);
+  const [newPost, setNewPost] = useState(0);
 
+  const handleNewPost = () => {
+    setNewPost(prev => prev + 1);
+  }
   const handleData = (bool, val) => {
     setFriends(bool);
     setSelected(val)
@@ -25,7 +29,7 @@ const Home = () => {
     >
       <div className="md:sticky md:top-6 md:left-0 md:max-h-0">
         <UserCard />
-        <UploadGifModal/>
+        <UploadGifModal handleNewPost={handleNewPost}/>
       </div>
 
       <div className="flex-1 space-y-6 justify-center items-center">
@@ -42,7 +46,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <GifFeed friends={friends}/>
+        <GifFeed friends={friends} newPost={newPost}/>
       </div>
 
       <div className="md:sticky md:top-6 md:left-0 md:max-h-0">
