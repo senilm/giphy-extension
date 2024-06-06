@@ -35,8 +35,8 @@ export default function Home() {
                   <img
                     alt="Hero GIF 2"
                     className="object-cover h-[255px] w-[225px] rounded-lg"
-                    src="/duck.gif"
-                    // style={{ transform: "translateY(-35%)" }}
+                    src="/fly.gif"
+                    style={{ transform: "translateY(-5%) translateX(-7%)" }}
                   ></img>
                 </div>
                 <div className=" flex gap-3">
@@ -186,7 +186,7 @@ export default function Home() {
                 className="inline-flex h-10 items-center justify-center rounded-md bg-gray-900 px-8 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
                 href="/auth/login"
               >
-                Start using
+                Start Exploring
               </Link>
             </div>
           </div>
