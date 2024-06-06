@@ -17,17 +17,35 @@ const initialState = {
   password: "",
 };
 
+const validateForm = (formData) => {
+  const errors = {};
+
+  const emailRegex = /^\w+@[a-zA-Z_\.]+\.[a-zA-Z]{2,}$/;
+  if (!emailRegex.test(formData.email)) {
+    errors.email = "Invalid email address";
+  }
+
+  if (formData.password.trim() === "") {
+    errors.password = "Password is required";
+  } 
+  return errors;
+};
+
 const Login = () => {
   const router = useRouter();
   const [formData, setFormData] = useState(initialState);
   const [loading, setLoading] = useState(false);
   const [errMsg, setErrMsg] = useState("");
   const {setUserId} = useStore();
+  const [errors, setErrors] = useState({});
+
   const handleLogin = async (e) => {
     e.preventDefault();
-    setLoading(true);
-  
+    const newErrors = validateForm(formData);
+    setErrors(newErrors);
+    if (Object.keys(newErrors).length === 0) {
     try {
+      setLoading(true);
       const response = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -51,6 +69,7 @@ const Login = () => {
     } finally { 
       setLoading(false);
     }
+  }
   };
 
   return (
@@ -74,12 +93,14 @@ const Login = () => {
                 name="email"
                 value={formData.email}
                 placeholder="you@example.com"
-                required
                 type="email"
                 onChange={(e) =>
                           setFormData({ ...formData, [e.target.name]: e.target.value })
                         }
               />
+              {errors.email && (
+              <p className="text-red-500 text-sm">{errors.email}</p>
+            )}
             </div>
             <div>
               <Label htmlFor="password">Password</Label>
@@ -92,9 +113,11 @@ const Login = () => {
                 onChange={(e) =>
                           setFormData({ ...formData, [e.target.name]: e.target.value })
                         }
-                required
                 type="password"
               />
+              {errors.password && (
+              <p className="text-red-500 text-sm">{errors.password}</p>
+            )}
             </div>
             {/* <div className="flex items-center justify-between">
               <div className="flex items-center">
