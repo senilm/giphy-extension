@@ -114,7 +114,7 @@ const GifCardHome = ({
       </div>
       <CardContent className="p-4">
         <div className="flex justify-between items-center mb-4">
-          <AvatarBox username={user?.username} userId={userId} />
+          <AvatarBox username={user?.username} profilePicture={user?.profilePicture} userId={userId} />
           {cUserId != user?.id ? (
             <Button className="rounded-full" size="icon" variant="ghost" onClick={handleFriend}>
               {isFriend ? (
