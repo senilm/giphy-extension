@@ -7,9 +7,8 @@ import { setAuthenticated } from "@/lib/auth";
 import Cookies from "js-cookie";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
-import { KeyRoundIcon, Loader2 } from "lucide-react";
+import { EyeIcon, EyeOffIcon,  Loader2 } from "lucide-react";
 import useStore from "@/store/store";
 
 const initialState = {
@@ -38,6 +37,11 @@ const Login = () => {
   const [errMsg, setErrMsg] = useState("");
   const {setUserId} = useStore();
   const [errors, setErrors] = useState({});
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevState) => !prevState);
+  };
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -104,6 +108,7 @@ const Login = () => {
             </div>
             <div>
               <Label htmlFor="password">Password</Label>
+              <div className="relative">
               <Input
                 autoComplete="current-password"
                 id="password"
@@ -113,8 +118,15 @@ const Login = () => {
                 onChange={(e) =>
                           setFormData({ ...formData, [e.target.name]: e.target.value })
                         }
-                type="password"
+                type={showPassword ? "text" : "password"}
               />
+              <span
+                  className="absolute top-0 right-0 mt-2 mr-2 cursor-pointer"
+                  onClick={togglePasswordVisibility}
+                >
+                  {showPassword ? <EyeOffIcon className="w-5 h-4"/> : <EyeIcon className="w-5 h-4" /> }
+                </span>
+              </div>
               {errors.password && (
               <p className="text-red-500 text-sm">{errors.password}</p>
             )}
