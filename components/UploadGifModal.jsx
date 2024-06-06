@@ -18,7 +18,7 @@ import { useEffect, useState } from "react";
 import useStore from "@/store/store";
 import Cookies from "js-cookie";
 
-const UploadGifModal = () => {
+const UploadGifModal = ({handleNewPost}) => {
   const {user} = useStore()
   const userId = user?.id || Cookies.get("userId")
   const [selectedFile, setSelectedFile] = useState(null);
@@ -82,6 +82,7 @@ const UploadGifModal = () => {
         method:"POST",
         body:formData
       })
+      handleNewPost()
       setOpen(false); 
     }
     setLoading(false); 

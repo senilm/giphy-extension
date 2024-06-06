@@ -102,6 +102,10 @@ const useStore = create(
       user: { ...state.user, id: id }
     })),
 
+    setUserBio: (bio) => set((state) => ({
+      user: { ...state.user, bio: bio }
+    })),
+
 }),
 {
   name: 'gif-storage',

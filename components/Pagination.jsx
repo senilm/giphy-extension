@@ -1,5 +1,4 @@
-import Button from "./Button";
-
+import { Button } from "./ui/button";
 const Pagination = ({ onPreviousClick, onNextClick, currentPage,handleButtonClick }) => {
     const totalPages = 10; 
     const pagesToShow = 3;
@@ -13,20 +12,21 @@ const Pagination = ({ onPreviousClick, onNextClick, currentPage,handleButtonClic
       <>
       <div className="flex justify-center my-4">
         {currentPage > 1 && (
-          <Button action={onPreviousClick}  label={'Prev'}/>
+          <Button onClick={onPreviousClick} variant={"outline"}>Prev</Button>
         )}
         <div className="flex">
         {pageNumbers.map((pageNum)=>(
-          <button
+          <Button
           key={pageNum}
           onClick={() => handleButtonClick(pageNum)}
           className={`${pageNum === currentPage ? 'bg-black text-white' : ''}  font-bold py-2 px-4 mx-2 rounded`}
+          variant={"outline"}
           >
             {pageNum}
-          </button>
+          </Button>
         ))}
         </div>
-        <Button action={onNextClick} label={'Next'} />
+        <Button onClick={onNextClick} variant={"outline"}>Next</Button>
       </div>
         </>
     );

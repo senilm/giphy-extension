@@ -10,9 +10,6 @@ const GifCard = ({ gif, fetchData = null }) => {
     likedPosts && likedPosts.some(item => item === gif.id || item === gif.gifyId)
     );
   
-  useEffect(()=>{
-    console.log(gif)
-  },[gif])
   let url;
   if (gif?.images?.fixed_height?.url) {
     url = gif?.images?.fixed_height?.url;

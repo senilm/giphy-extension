@@ -3,7 +3,7 @@ import Feed from "@/components/Feed";
 import Pagination from "@/components/Pagination";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const Explore = ({params}) => {
     const {searchTag} = params; 
@@ -11,8 +11,9 @@ const Explore = ({params}) => {
     const [gifData, setGifData] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const apiKey = "GlVGYHkr3WSBnllca54iNt0yFbjz7L65";
-    const limit = 12;
+    const limit = 25;
     const calculateOffset = (page) => (page - 1) * limit;
+    // const observerRef = useRef(null);
   
     const trendUrl = `https://api.giphy.com/v1/gifs/trending?api_key=${apiKey}&limit=${limit}&offset=${calculateOffset(
       currentPage
@@ -23,6 +24,33 @@ const Explore = ({params}) => {
     )}`;
 
     let debounceTimeout;
+
+    // const handleObserver = (entries) => {
+    //   if (entries[0].isIntersecting) {
+    //     setCurrentPage((prevPage) => prevPage + 1);
+    //   }
+    // };
+    // useEffect(() => {
+    //   const observerOptions = {
+    //     root: null,
+    //     rootMargin: "0px",
+    //     threshold: 0.5,
+    //   };
+  
+    //   const observer = new IntersectionObserver(handleObserver, observerOptions);
+  
+    //   if (observerRef.current) {
+    //     observer.observe(observerRef.current);
+    //   }
+  
+    //   return () => {
+    //     if (observerRef.current) {
+    //       observer.unobserve(observerRef.current);
+    //     }
+    //   };
+    // }, [observerRef.current]);
+  
+    
   
     const fetchGif = async () => {
       let response
@@ -42,8 +70,15 @@ const Explore = ({params}) => {
       }
       if (response.ok) {
         const data = await response.json();
-        setGifData(data);
-      } else {
+        setGifData(data)
+        // setGifData((prevData) => {
+        //   if (!prevData) return newData;
+        //   return {
+        //     ...newData,
+        //     data: [...prevData.data, ...newData.data],
+        //   };
+        // });
+      }else {
         throw new Error("Failed to fetch data");
       }
     };
@@ -97,6 +132,7 @@ const Explore = ({params}) => {
           </div>
 
           <Feed gifData={gifData} />
+          {/* <div ref={observerRef}></div> */}
 
           <Pagination onPreviousClick={handlePreviousClick}
               onNextClick={handleNextClick}
