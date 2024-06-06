@@ -21,7 +21,7 @@ const SuggestedFriends = () => {
 
   return <>
     {canBeFriend.length > 0 ?  canBeFriend?.map((item)=>{
-        return <AvatarBox username={item?.username} userId={item.id} key={item?.id} frd={true} friendId={item.id}/>
+        return <AvatarBox username={item?.username} userId={item.id} profilePicture={item?.profilePicture} key={item?.id} frd={true} friendId={item.id}/>
     }) : <div className=" text-gray-400 text-sm">No users left</div>}
   </>;
 };
