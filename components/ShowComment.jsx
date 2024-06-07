@@ -11,6 +11,7 @@ const ShowComment = ({ user, comment, createdAt }) => {
         username={user?.username}
         name={user?.name}
         userId={user?.id}
+        profilePicture={user?.profilePicture}
         />
         <div className=" text-sm text-gray-400 text-end ">{getTimeAgo(createdAt)}</div>
 
