@@ -28,7 +28,7 @@ const Navbar = () => {
       </Link>
       <div className="gap-5 flex items-center transition-all">
         {navLinks.map((link)=>{
-            return <Link href={link.value} key={link.label} className={isActive(link.value) ? ' underline-offset-4 underline' : ''}>{link.label}</Link>
+            return <Link href={link.value} key={link.label} className={isActive(link.value) ? ' bg-gray-200 p-2 rounded-lg' : 'p-2'}>{link.label}</Link>
         })}
         <Button type={"button"} onClick={logOut} variant="outline">
           Logout

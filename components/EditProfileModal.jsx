@@ -1,5 +1,4 @@
 "use client";
-import { UploadIcon } from "@/lib/icons";
 import { Avatar, AvatarFallback } from "./ui/avatar";
 import { Button } from "./ui/button";
 import {
@@ -27,7 +26,7 @@ const EditProfileModal = ({ bio: OldBio ,pic, changePicFunction}) => {
     setBio(OldBio);
   }, [OldBio]);
 
-  const [profilePicture, setProfilePicture] = useState(null);
+  const [profilePicture, setProfilePicture] = useState(pic);
   const [errors, setErrors] = useState({});
   const MAX_BIO_LENGTH = 150;
   const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
@@ -35,7 +34,7 @@ const EditProfileModal = ({ bio: OldBio ,pic, changePicFunction}) => {
   const [open, setOpen] = useState(false);
 
   const resetForm = () => {
-    setProfilePicture(null);
+    setProfilePicture(pic);
     setBio(OldBio);
     setErrors({});
   };
@@ -45,6 +44,10 @@ const EditProfileModal = ({ bio: OldBio ,pic, changePicFunction}) => {
       resetForm();
     }
   }, [open]);
+
+  useEffect(()=>{
+    console.log(pic);
+  },[pic])
 
   const handleProfilePictureUpload = (event) => {
     const file = event.target.files[0];
@@ -186,11 +189,11 @@ const EditProfileModal = ({ bio: OldBio ,pic, changePicFunction}) => {
             >
               {loading ? "Please wait" : "Save changes"}
             </Button>
-            <DialogClose asChild>
+            {/* <DialogClose asChild>
               <div>
                 <Button variant="outline">Cancel</Button>
               </div>
-            </DialogClose>
+            </DialogClose> */}
           </DialogFooter>
         </form>
       </DialogContent>

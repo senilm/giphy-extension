@@ -36,7 +36,7 @@ const GifCardHome = ({
     friends,
     removeFriend,
     addFriend,
-    user : CurrentUser
+    user: CurrentUser,
   } = useStore();
   const [liked, setLiked] = useState(likedPosts?.includes(id) ? true : false);
   const [gifLikeCount, setGifLikeCount] = useState(GifLike.length);
@@ -44,7 +44,7 @@ const GifCardHome = ({
   const [isFriend, setIsFriend] = useState(
     friends?.includes(user.id) ? true : false
   );
-  const cUserId = CurrentUser?.id
+  const cUserId = CurrentUser?.id;
   const increaseComment = () => {
     setCommentCount((prev) => prev + 1);
   };
@@ -73,28 +73,27 @@ const GifCardHome = ({
     }
   };
 
-  const handleFriend = async () =>{
+  const handleFriend = async () => {
     try {
-      const response = await fetch(`api/friend/${cUserId}`,{
-        method:"POST",
-        body:JSON.stringify({
-          friendId:user?.id
-        })
-      })
-      const res = await response.json();   
-      if(response.ok){
-        if(res?.message == "Add"){
-          addFriend(user?.id)
-        }else if(res?.message == 'Remove'){
-          removeFriend(user?.id)
+      const response = await fetch(`api/friend/${cUserId}`, {
+        method: "POST",
+        body: JSON.stringify({
+          friendId: user?.id,
+        }),
+      });
+      const res = await response.json();
+      if (response.ok) {
+        if (res?.message == "Add") {
+          addFriend(user?.id);
+        } else if (res?.message == "Remove") {
+          removeFriend(user?.id);
         }
-        setIsFriend(prev => !prev)
-      } 
+        setIsFriend((prev) => !prev);
+      }
     } catch (error) {
       console.error(error);
     }
-    
-  }
+  };
   if (url?.endsWith(".mp4")) {
     url = url.slice(0, -4) + ".gif";
   }
@@ -108,15 +107,22 @@ const GifCardHome = ({
           src={url}
           width={300}
         />
-        {/* <div className="absolute rounded-lg inset-0 bg-gray-900/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-          <MaximizeIcon className="w-8 h-8 text-white" />
-        </div> */}
       </div>
       <CardContent className="p-4">
         <div className="flex justify-between items-center mb-4">
-          <AvatarBox username={user?.username} profilePicture={user?.profilePicture} name={user?.name} userId={userId} />
+          <AvatarBox
+            username={user?.username}
+            profilePicture={user?.profilePicture}
+            name={user?.name}
+            userId={userId}
+          />
           {cUserId != user?.id ? (
-            <Button className="rounded-full" size="icon" variant="ghost" onClick={handleFriend}>
+            <Button
+              className="rounded-full"
+              size="icon"
+              variant="ghost"
+              onClick={handleFriend}
+            >
               {isFriend ? (
                 <UserCheckIcon className="w-4 h-4" />
               ) : (
