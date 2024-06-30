@@ -22,7 +22,7 @@ const loading = () => {
     <div className="flex justify-center items-center min-h-screen">
       <style>{keyframes}</style>
       <div className="text-4xl font-bold text-black" style={pulseAnimation}>
-        GIFBook
+        GIF
       </div>
     </div>
   );
