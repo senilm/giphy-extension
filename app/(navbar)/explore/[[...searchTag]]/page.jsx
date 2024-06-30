@@ -1,6 +1,7 @@
 "use client"
 import Feed from "@/components/Feed";
 import Pagination from "@/components/Pagination";
+import ExploreSkeleton from "@/components/exploreSkeleton";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useEffect, useRef, useState } from "react";
@@ -8,11 +9,13 @@ import { useEffect, useRef, useState } from "react";
 const Explore = ({params}) => {
     const {searchTag} = params; 
     const [searchTerm, setSearchTerm] = useState(searchTag ? searchTag[0] : "");
+    const [loading, setLoading] = useState(true);
     const [gifData, setGifData] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const apiKey = "GlVGYHkr3WSBnllca54iNt0yFbjz7L65";
     const limit = 25;
     const calculateOffset = (page) => (page - 1) * limit;
+    
     // const observerRef = useRef(null);
   
     const trendUrl = `https://api.giphy.com/v1/gifs/trending?api_key=${apiKey}&limit=${limit}&offset=${calculateOffset(
@@ -81,6 +84,7 @@ const Explore = ({params}) => {
       }else {
         throw new Error("Failed to fetch data");
       }
+      setLoading(false);
     };
   
     useEffect(()=>{
@@ -120,7 +124,6 @@ const Explore = ({params}) => {
     return (
       <>
         <div className="border  rounded-xl bg-white">
-
           <div className=" flex gap-5 justify-center">
             <Input
               type="text"
@@ -130,14 +133,22 @@ const Explore = ({params}) => {
               placeholder="Search GIF here"
             />
           </div>
-
+          {loading ? 
+          <div className="flex justify-between mt-3 m-4 flex-wrap">
+             <ExploreSkeleton/> 
+             <ExploreSkeleton/> 
+             <ExploreSkeleton/> 
+             <ExploreSkeleton/> 
+            </div> : 
+          <>
           <Feed gifData={gifData} />
           {/* <div ref={observerRef}></div> */}
-
           <Pagination onPreviousClick={handlePreviousClick}
-              onNextClick={handleNextClick}
-              currentPage={currentPage}
-              handleButtonClick={handleButtonClick}/>
+          onNextClick={handleNextClick}
+          currentPage={currentPage}
+          handleButtonClick={handleButtonClick}/>
+          </>
+        }
         </div>
       </>
     );

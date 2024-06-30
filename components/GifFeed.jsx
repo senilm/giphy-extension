@@ -3,11 +3,12 @@ import GifCardHome from "./GifCardHome";
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import useStore from "@/store/store";
+import GifCardHomeSkeleton from "./GifCardHomeSkeleton";
 
 const GifFeed = ({friends, newPost}) => {
   const {user, setLikedPosts, friends : TotalFriends} = useStore()
   const [GifData, setGifData] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [likes, setLikes] = useState([])
   const userId = user?.id;
 
@@ -55,7 +56,15 @@ const GifFeed = ({friends, newPost}) => {
   return (
     <>
       <div className="grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-3 gap-6">
-        {loading? (<div className="col-span-3 text-center  text-lg mb-4 text-gray-700">loading</div>) : 
+        {loading? (
+        // <div className="col-span-3 text-center  text-lg mb-4 text-gray-700">loading</div>
+        <>
+        <GifCardHomeSkeleton/>
+        <GifCardHomeSkeleton/>
+        <GifCardHomeSkeleton/>
+        <GifCardHomeSkeleton/>
+        </>
+      ) : 
         GifData.length > 0
           ? GifData.map((gif) => {
             return <GifCardHome {...gif} key={gif?.id}/>;
