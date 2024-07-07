@@ -17,7 +17,8 @@ import UserProfileSkeleton from "@/components/UserProfileSkeleton";
 const Profile = ({ params }) => {
   const { user, totalLikes, friends, joinDate } = useStore();
   const { userId } = params;
-  let fetchId = userId ? userId[0] : Cookies.get("userId");
+  let currentUserId = Cookies.get("userId");
+  let fetchId = userId ? userId[0] : currentUserId;
   const [userData, setUserData] = useState({});
   const [useFriends, setUserFriends] = useState([]);
   const [picChange, SetPicChange] = useState(false);
@@ -97,7 +98,8 @@ const Profile = ({ params }) => {
 
             {/* bio */}
             <div className="text-sm text-gray-500 dark:text-gray-400">
-              {userData?.bio || user?.bio}
+              {userData?.bio ? userData?.bio : currentUserId == userData?.id ? user?.bio : ""}
+              
             </div>
 
             {/* details */}
@@ -141,7 +143,7 @@ const Profile = ({ params }) => {
 
         {/* gifs */}
         <div className="col-span-full">
-          <div className="text-lg font-bold">My GIFs</div>
+          <div className="text-lg font-bold">GIFs</div>
           <div className="lg:columns-4 md:columns-3 sm:columns-2 columns-1 m-4">
             {
             userData?.Gifs?.length > 0 ? (
