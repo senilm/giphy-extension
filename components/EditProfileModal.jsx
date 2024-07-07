@@ -78,7 +78,7 @@ const EditProfileModal = ({ bio: OldBio ,pic, changePicFunction}) => {
 
     const formData = new FormData();
     formData.append("bio", bio);
-    if (profilePicture) {
+    if (profilePicture && profilePicture != pic) {
       formData.append("profilePicture", profilePicture);
     }
     if (!errors?.bio && !errors.profilePicture) {
@@ -91,6 +91,7 @@ const EditProfileModal = ({ bio: OldBio ,pic, changePicFunction}) => {
       const res = await response.json();
       if (!response.ok) {
         setErrors({ ...errors, status: "Failed to update profile" });
+        return;
       }
       setUserBio(bio);
       changePicFunction();

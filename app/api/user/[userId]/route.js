@@ -51,16 +51,28 @@ export const PATCH = async (req, { params }) => {
       profilePictureUrl = res.secure_url;
     }
 
+    let updatedUser;
+    if(profilePictureUrl){
+       updatedUser = await prisma.user.update({
+        where: {
+          id: userId,
+        },
+        data: {
+          profilePicture: profilePictureUrl,
+          bio,
+        },
+      });
+    }else{
+      updatedUser = await prisma.user.update({
+        where: {
+          id: userId,
+        },
+        data: {
+          bio,
+        },
+      });
+    }
     
-    const updatedUser = await prisma.user.update({
-      where: {
-        id: userId,
-      },
-      data: {
-        profilePicture: profilePictureUrl,
-        bio,
-      },
-    });
     return new Response(JSON.stringify(updatedUser), { status: 200 });
   } catch (error) {
     return new Response(JSON.stringify({ message: error.message }), {
